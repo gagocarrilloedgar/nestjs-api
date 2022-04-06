@@ -80,7 +80,7 @@ Nest is [MIT licensed](LICENSE).
 
 # Learnings
 - [Course NestJS](https://www.youtube.com/watch?v=GHTA143_b-s)
-- Minute: 50:13
+- Minute: 1:49
 
 ## Definitions
 
@@ -119,3 +119,30 @@ npx prima generate
 import {SchemaName} from "@prisma/cli"
 ```
 
+- [Possibility to subscribe](https://frontendmasters.com/learn/)
+
+
+
+## Development
+
+```shell
+# launch docker
+# start db
+docker compose up nest-db -d
+
+#start server
+npm run dev
+```
+
+**Visual database**
+This is the command to open prisma studio
+```shell
+npx prisma studio 
+```
+
+## Patterns
+
+- Baron export pattern
+- Pipe transformation and validation: *class-validator and class-transformer*
+- Security & hashing: *argon2*
+- Auth: --save @nestjs/passport passport passport-jwt @nestjs/jwt | --save-dev @types/passport-jwt
