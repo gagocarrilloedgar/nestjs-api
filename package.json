@@ -9,6 +9,10 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "dev": "npm run start:dev",
+    "db:dev:start": "docker compose up nest-db -d",
+    "db:dev:stop": "docker compose rm nest-db -s -f -v",
+    "prisma:dev:deploy": "npx prisma migrate deploy",
+    "db:dev:reset": "npm run db:dev:stop && npm run db:dev:start && sleep 1 && npm run prisma:dev:deploy",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -19,11 +23,13 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:start": "docker compose up nest-db -d",
-    "db:stop": "docker compose rm nest-db -s -f -v",
-    "prisma:deploy": "npx prisma migrate deploy",
-    "db:reset": "npm run db:stop && npm run db:start && sleep 1 && npm run prisma:deploy"
+    "db:test:start": "docker compose up test-db -d",
+    "db:test:stop": "docker compose rm test-db -s -f -v",
+    "prisma:test:deploy": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "db:test:reset": "npm run db:test:stop && npm run db:test:start && sleep 1 && npm run prisma:test:deploy",
+    "studio:test": "dotenv -e .env.test -- prisma studio",
+    "pretest:e2e": "npm run db:test:reset",
+    "test:e2e": "dotenv -e .env.test -- jest --watch --no-cache --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -53,10 +59,12 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "dotenv-cli": "^5.1.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.2.5",
+    "pactum": "^3.1.5",
     "prettier": "^2.3.2",
     "prisma": "^3.11.1",
     "source-map-support": "^0.5.20",
@@ -72,6 +80,10 @@
       "js",
       "json",
       "ts"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
     ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",

@@ -18,5 +18,3 @@ import { PrismaModule } from './prisma/prisma.module';
   ]
 })
 export class AppModule {}
-
-// Module: src/app.module.ts

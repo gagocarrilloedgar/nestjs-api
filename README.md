@@ -34,15 +34,26 @@ $ npm install
 
 ## Running the app
 
+*Make sure to have docker started*
+
+
 ```bash
+# Start posgreSQL localDB
+docker compose up nest-db -d
+
 # development
 $ npm run start
 
 # watch mode
-$ npm run start:dev
+$ npm run dev
 
 # production mode
 $ npm run start:prod
+```
+
+**Database visualization**
+```bash
+npx prisma studio
 ```
 
 ## Test
@@ -146,3 +157,9 @@ npx prisma studio
 - Pipe transformation and validation: *class-validator and class-transformer*
 - Security & hashing: *argon2*
 - Auth: --save @nestjs/passport passport passport-jwt @nestjs/jwt | --save-dev @types/passport-jwt
+
+
+### Resouces
+- https://github.com/vladwulf/nestjs-api-tutorial
+- https://www.youtube.com/watch?v=GHTA143_b-s&t=6547s
+- https://www.youtube.com/c/CodeWithVlad/videos
